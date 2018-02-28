@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'colorize'
+require 'pry'
 
 BALANCES = {
   'haseeb' => 100_000,
@@ -11,6 +12,7 @@ end
 
 # @param user
 get "/balance" do
+  puts 'ddd'.green
   username = params['user'].downcase
   print_state
   "#{username} has #{BALANCES[username]}"
@@ -21,6 +23,14 @@ post "/users" do
   name = params['name'].downcase
   BALANCES[name] ||= 0
   print_state
+  "OK"
+end
+
+post '/increase_balance' do
+  name = params['name'].downcase
+  amount = params['amount'].to_i
+  BALANCES[name] ||= 0
+  BALANCES[name] += amount
   "OK"
 end
 
